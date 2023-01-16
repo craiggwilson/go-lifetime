@@ -50,7 +50,7 @@ func (s *Singleton[T]) MustInstance() T {
 func (s *Singleton[T]) Instance() (T, error) {
 	s.createdOnce.Do(func() {
 		s.instance, s.err = s.create()
-		s.wasCreated.Swap(s.err == nil)
+		s.wasCreated.Store(s.err == nil)
 	})
 
 	return s.instance, s.err
